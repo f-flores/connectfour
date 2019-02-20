@@ -13,7 +13,7 @@ class ConnectFour extends Component {
   }
 
   componentDidMount() {
-    axios.get(API_URL, { headers: { 'Ocp-Apim-Subscription-Key': API_KEY } })
+    axios.get(API_URL, { headers: { 'Key': API_KEY } })
     .then(res => {
       console.log(res);
     })
@@ -25,7 +25,7 @@ class ConnectFour extends Component {
   render() {
     return (
       <div>
-        Product View
+        Connect Four
       </div>
 
     );
