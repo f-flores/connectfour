@@ -1,6 +1,6 @@
 import React from 'react';
-import ProductView from './components/ProductView';
+import ConnectFour from './components/ConnectFour';
 
-const App = () => <ProductView />
+const App = () => <ConnectFour />
 
 export default App;

@@ -4,7 +4,7 @@ import axios from 'axios';
 const API_URL = `test_url`;
 const API_KEY = `test_url`;
 
-class ProductView extends Component {
+class ConnectFour extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,4 +32,4 @@ class ProductView extends Component {
   }
 }
 
-export default ProductView;
+export default ConnectFour;
