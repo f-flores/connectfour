@@ -19,7 +19,7 @@ access.log
 .env.production.local
 
 # added September, 2018
-.env.development
+# .env.development
 
 
 npm-debug.log*
