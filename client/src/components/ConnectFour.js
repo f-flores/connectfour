@@ -13,13 +13,13 @@ class ConnectFour extends Component {
   }
 
   componentDidMount() {
-    axios.get(API_URL, { headers: { 'Key': API_KEY } })
+/*     axios.get(API_URL, { headers: { 'Key': API_KEY } })
     .then(res => {
       console.log(res);
     })
     .catch(err => {
       console.log(err);
-    });
+    }); */
   }
 
   render() {
