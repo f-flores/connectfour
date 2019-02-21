@@ -36,16 +36,16 @@ class ConnectFour extends Component {
     const {board} = this.state;
 
     return (
-      <Container className="justify-content-sm-center">
-        <Row>
-          <Col xs={12} sm="auto">
+      <Container className="justify-content-center">
+        <Row className="my-3">
+          <Col xs={12} sm={{ span: 8, offset: 2 }}>
             <Header>
               <CustomH1>Connect Four</CustomH1>
             </Header>
           </Col>
         </Row>
         <Row>
-          <Col xs={12} sm={{ span: 6, offset: 3 }}>
+          <Col xs={12} sm={{ span: 8, offset: 2 }}>
             <Board
               playBoard={board}
             />

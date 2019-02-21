@@ -18,6 +18,7 @@ const TCell = styled.td`
   background-color: "#f8f5a3";
   border-right: 2px solid black;
   border-left: 2px solid black;
+  padding: 5px;
 `;
 
 const Board = props => {
