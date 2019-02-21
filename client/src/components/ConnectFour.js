@@ -1,31 +1,37 @@
 import React, {Component} from 'react';
+import Board from './Board';
 import axios from 'axios';
 
-const API_URL = `test_url`;
-const API_KEY = `test_url`;
+const GRID_ROWS = 7;
+const GRID_COLS = 7;
 
 class ConnectFour extends Component {
   constructor(props) {
     super(props);
     this.state = {
       products: [],
+      turn: 1,
+      board: [...Array(GRID_ROWS)].fill(null).map(x=>Array(GRID_COLS).fill(null)),
     }
   }
 
   componentDidMount() {
-/*     axios.get(API_URL, { headers: { 'Key': API_KEY } })
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-    }); */
+
   }
 
   render() {
+    const {board} = this.state;
+
     return (
       <div>
+        <header>
         Connect Four
+        </header>
+        <section>
+          <Board
+            playBoard={board}
+          />
+        </section>
       </div>
 
     );
