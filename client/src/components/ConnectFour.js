@@ -37,7 +37,7 @@ class ConnectFour extends Component {
 
     return (
       <Container className="justify-content-center">
-        <Row className="my-3">
+        <Row className="my-5">
           <Col xs={12} sm={{ span: 8, offset: 2 }}>
             <Header>
               <CustomH1>Connect Four</CustomH1>

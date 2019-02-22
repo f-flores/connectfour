@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {Component} from 'react';
+import HoverCell from './HoverCell';
 import styled from 'styled-components'
 
 const Table = styled.table`
@@ -21,30 +22,49 @@ const TCell = styled.td`
   padding: 5px;
 `;
 
-const Board = props => {
-  const {playBoard} = props;
+class Board extends Component {
+  constructor(props) {
+    super(props);
+    this.handleMouseOver = this.handleMouseOver.bind(this);
+  }
 
-  return (
-    <Table>
-    {
-      playBoard.map(function(row, index) {
+  handleMouseOver(event, row) {
+    event.preventDefault();
+    console.log(`hovering over row ${row}`);
+  }
 
-        return (
-          <TRow key={index}>
-              {
-                row.map(function(col, cIndex) {
-                  return (
-                      <TCell key={`{index}{cIndex}`}>Row: {index}, Col: {cIndex}</TCell>
-                  )
-                })
-              }
-          </TRow>
-        );
+  render() {
+    const {playBoard} = this.props;
 
-      })
-    }
-    </Table>
-  );
+    return (
+      <Table>
+      {
+        playBoard.map(function(row, rIdx) {
+
+          return (
+            <TRow key={rIdx}>
+                {
+                  row.map(function(col, cIdx) {
+                    return (
+                        <TCell key={`{rIdx}{cIdx}`} >
+                          Row: {rIdx}, Col: {cIdx}
+                          <HoverCell
+                            board={playBoard}
+                            boardRow={rIdx}
+                            boardCol={cIdx}
+                          />
+                        </TCell>
+                    )
+                  })
+                }
+            </TRow>
+          );
+
+        })
+      }
+      </Table>
+    );
+  }
 }
 
 export default Board;
