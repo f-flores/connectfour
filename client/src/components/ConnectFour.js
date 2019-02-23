@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Board from './Board';
-import axios from 'axios';
+// import axios from 'axios';
 import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
