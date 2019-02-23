@@ -10,7 +10,7 @@ const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const MongoStore = require("connect-mongo")(session);
-const routes = require("./routes");
+// const routes = require("./routes");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const	fs = require("fs");
@@ -32,10 +32,6 @@ var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
 	"flags": "a"
 });
 
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
 //  Have morgan output to access.log file and to console
 app.use(logger("common", {
 	"stream": accessLogStream
@@ -62,14 +58,15 @@ app.use(session({
 // =============================================================
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
+}
 
 // Add Database
 // =============================================================
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tilt");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/connectfour", { useNewUrlParser: true });
 
 // API Routes
 // =============================================================
-app.use(routes);
+// app.use(routes);
 
 // Send All Requests To React App
 // =============================================================
@@ -77,7 +74,7 @@ app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
-// Start the API server
+// Start the server
 app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+  console.log(`🌎  ==> Server now listening on PORT ${PORT}!`);
 });
