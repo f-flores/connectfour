@@ -21,6 +21,9 @@ const boardSchema = new Schema({
   },
   namePlayer: {
     type: String
+  },
+  color: {
+    type: String
   }
 });
 

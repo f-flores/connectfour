@@ -45,7 +45,19 @@ class ConnectFour extends Component {
           </Col>
         </Row>
         <Row>
-          <Col xs={12} sm={{ span: 8, offset: 2 }}>
+          <Col xs={12} sm={2}>
+            <Row>
+              <Col xs={12}>
+              Player 1
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12}>
+              Player 2
+              </Col>
+            </Row>
+          </Col>
+          <Col xs={12} sm={8}>
             <Board
               playBoard={board}
             />
