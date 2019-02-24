@@ -46,7 +46,7 @@ class Board extends Component {
                 {
                   row.map(function(col, cIdx) {
                     return (
-                        <TCell key={`{rIdx}{cIdx}`} >
+                        <TCell key={`tCell{rIdx}{cIdx}`} >
                           Row: {rIdx}, Col: {cIdx}
                           <HoverCell
                             board={playBoard}
