@@ -3,8 +3,8 @@ import HoverCell from './HoverCell';
 import styled from 'styled-components'
 
 const Table = styled.table`
-  background-color: "#f8f5a3";
-  color: "#000040";
+  background-color: #f8f5a3;
+  color: #000040;
   border-left: 2px solid black;
   border-right: 2px solid black;
   border-bottom: 2px solid black;
@@ -16,7 +16,7 @@ const TRow = styled.tr`
 `;
 
 const TCell = styled.td`
-  background-color: "#f8f5a3";
+  background-color: #f8f5a3;
   border-right: 2px solid black;
   border-left: 2px solid black;
   padding: 5px;
