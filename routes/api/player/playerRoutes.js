@@ -8,10 +8,10 @@
 
 
 const router = require("express").Router();
-// const dbController = require("../../../controllers/controller");
-const player = require("../../../models/GameBoard");
+const dbController = require("../../../controllers/controller");
+// const player = require("../../../models/GameBoard");
 
-// For "/api/videos"
+// For "/api/player"
 router
   .route("/")
   .get(function(req, res) {dbController.findAll(req, res);})

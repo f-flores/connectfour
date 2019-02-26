@@ -1,5 +1,3 @@
-import { Schema } from "mongoose";
-
 // ===========================================
 //
 // File name: GameBoard.js
@@ -7,8 +5,11 @@ import { Schema } from "mongoose";
 //
 // ===========================================
 
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
 const boardSchema = new Schema({
-  player: {
+  playerNum: {
     type: Number,
     default: 0,
     required: true
@@ -19,7 +20,7 @@ const boardSchema = new Schema({
   yPos: {
     type: Number
   },
-  namePlayer: {
+  playerName: {
     type: String
   },
   color: {

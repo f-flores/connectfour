@@ -5,7 +5,7 @@
 //
 // =============================================
 
-const Player = require("../models/GameBoard");
+const Player = require("./../models/GameBoard");
 
 // Minimum username length
 const UnameMinLength = 2;
@@ -27,69 +27,33 @@ module.exports = {
   },
 
   create: function (req, res) {
-    let isValidEntry = true;
-    let errorText = "";
+    const {playerName, playerNum} = req.body;
+    let errorText = "error";
 
-    // -----------------------------------------------------------------------
-    // validateEmail() checks if an email is valid
-    // source code for regular expression:
-    // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript/1373724#1373724
-    //
-    function validateEmail(email) {
-      var re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
-
-      return re.test(email);
+    let playerData = {
+      playerName: playerName,
+      playerNum: playerNum,
     }
 
-    // backend validation
-    // validate username
-    if (req.body.username.length < UnameMinLength ||
-      req.body.username.length > UnameMaxLength) {
-      isValidEntry = false;
-      errorText += `Username must be between ${UnameMinLength} and ${UnameMaxLength} characters.\n`;
-    }
+    // determine player num by counting current number of players
 
-    // validate email
-    if (!validateEmail(req.body.email)) {
-      isValidEntry = false;
-      errorText += `Invalid email.\n`;
-    }
+    //use schema.create to insert data into the db
+    if (playerName && playerNum) {
+    Player
+      .create(playerData, function (err, user) {
+        if (err) {console.log(err); res.status(404).send("Username/email exists already.");}
 
-    // validate password
-    if (req.body.password.length < MinPasswordLength) {
-      isValidEntry = false;
-      errorText += `Password must be at least ${MinPasswordLength} characters long.\n`;
-    }
-
-    // validate password match
-    if (req.body.password !== req.body.pswrdConfirmation) {
-      isValidEntry = false;
-      errorText += `Password and confirmation do not match.\n`;
-    }
-
-    if (isValidEntry) {
-      let userData = {
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password
-      }
-      //use schema.create to insert data into the db
-      Player
-        .create(userData, function (err, user) {
-          if (err) {console.log(err); res.status(404).send("Username/email exists already.");}
-
-          // Left Hand Side Comes From Sessions and Is Mapped To Our User Table
-          req.session.userId = user._id;
-          req.session.username = user.username;
-          req.session.userType = user.userType;
-          req.session.email = user.email;
-          res.json({
-            isLoggedIn: true,
-            userId: req.session.userId,
-            username: req.session.username,
-            email: req.session.email
-          });
+        // Left Hand Side Comes From Sessions and Is Mapped To Our User Table
+        req.session.playerId = user._id;
+        req.session.playerName = user.playerName;
+        req.session.playerNum = user.playerNum;
+        res.json({
+          isLoggedIn: true,
+          playerId: req.session.playerId,
+          playerName: req.session.playerName,
+          playerNum: req.session.playerNum,
         });
+      });
     }
     else {
       res.status(404).send(errorText);
@@ -183,3 +147,46 @@ module.exports = {
   }
 
 };
+
+/*
+
+VALIDATION FUNCTIONS
+
+   // backend validation
+    // validate username
+    if (req.body.username.length < UnameMinLength ||
+      req.body.username.length > UnameMaxLength) {
+      isValidEntry = false;
+      errorText += `Username must be between ${UnameMinLength} and ${UnameMaxLength} characters.\n`;
+    }
+
+       // -----------------------------------------------------------------------
+    // validateEmail() checks if an email is valid
+    // source code for regular expression:
+    // https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript/1373724#1373724
+    //
+    function validateEmail(email) {
+      var re = /^(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+
+      return re.test(email);
+    }
+
+    // validate email
+    if (!validateEmail(req.body.email)) {
+      isValidEntry = false;
+      errorText += `Invalid email.\n`;
+    }
+
+    // validate password
+    if (req.body.password.length < MinPasswordLength) {
+      isValidEntry = false;
+      errorText += `Password must be at least ${MinPasswordLength} characters long.\n`;
+    }
+
+    // validate password match
+    if (req.body.password !== req.body.pswrdConfirmation) {
+      isValidEntry = false;
+      errorText += `Password and confirmation do not match.\n`;
+    }
+
+*/

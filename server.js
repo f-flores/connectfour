@@ -10,7 +10,7 @@ const express = require("express");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const MongoStore = require("connect-mongo")(session);
-// const routes = require("./routes");
+const routes = require("./routes");
 const mongoose = require("mongoose");
 const logger = require("morgan");
 const	fs = require("fs");
@@ -66,7 +66,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/connectfour", {
 
 // API Routes
 // =============================================================
-// app.use(routes);
+app.use(routes);
 
 // Send All Requests To React App
 // =============================================================
