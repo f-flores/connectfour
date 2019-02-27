@@ -16,13 +16,28 @@ const UnameMaxLength = 10;
 // Minimum password length
 const MinPasswordLength = 6;
 
-// Defining database methods for the Tilt's User table
+// Defining database methods for GameBoard model
 module.exports = {
   findAll: function (req, res) {
     Player
-      .find(req.query)
-      .sort({ date: -1 })
+      .count(req.query)
+      // .sort({ playerNum: "ascending" })
       .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+  },
+
+  // returns list of active players by player num
+  findActive: function (req, res) {
+    Player
+      .find(req.query)
+      // .sort({ playerNum: "ascending" })
+      .then(dbModel => {
+        const playerList = [];
+        for (item of dbModel) {
+          playerList.push(item.playerNum);
+        }
+        res.json({activeList: playerList});
+      })
       .catch(err => res.status(422).json(err));
   },
 
@@ -39,7 +54,7 @@ module.exports = {
 
     //use schema.create to insert data into the db
     if (playerName && playerNum) {
-    Player
+      Player
       .create(playerData, function (err, user) {
         if (err) {console.log(err); res.status(404).send("Username/email exists already.");}
 
@@ -53,7 +68,8 @@ module.exports = {
           playerName: req.session.playerName,
           playerNum: req.session.playerNum,
         });
-      });
+      })
+      .catch(err => res.status(422).json(err));
     }
     else {
       res.status(404).send(errorText);
