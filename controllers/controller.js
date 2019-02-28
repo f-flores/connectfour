@@ -160,7 +160,30 @@ module.exports = {
       .then(dbModel => dbModel.remove())
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
-  }
+  },
+
+  leave: function(req, res) {
+    // remove player from player list
+    Player
+      .findById({_id: req.params.id})
+      .then(dbModel => dbModel.remove())
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
+
+    // destroy session
+    if (req.session) {
+      // delete session object
+      req.session.destroy(function (err) {
+        if (err) throw err;
+        return res.status(200).json({
+          playerId: "",
+          playerName: "",
+          playerNum: null,
+        });
+        // return res.redirect("/");
+      });
+    }
+  },
 
 };
 

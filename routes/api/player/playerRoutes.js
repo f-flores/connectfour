@@ -24,4 +24,9 @@ router
   .put(function(req, res) {dbController.update(req, res);})
   .delete(function(req, res) {dbController.remove(req, res);});
 
+// for "/api/player/leave/:pnum"
+router
+  .route("/leave/:id")
+  .get(function(req, res) {dbController.exitGame(req,res);})
+
 module.exports = router;
