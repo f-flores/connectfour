@@ -26,7 +26,7 @@ router
 
 // for "/api/player/leave/:pnum"
 router
-  .route("/leave/:id")
-  .get(function(req, res) {dbController.exitGame(req,res);})
+  .route("/leave/:pnum")
+  .delete(function(req, res) {dbController.exitGame(req,res);})
 
 module.exports = router;

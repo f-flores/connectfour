@@ -162,12 +162,15 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
-  leave: function(req, res) {
+  exitGame: function(req, res) {
+    const {pnum} = req.params;
+    console.log(`found player ${pnum} and removing...`);
     // remove player from player list
     Player
-      .findById({_id: req.params.id})
-      .then(dbModel => dbModel.remove())
-      .then(dbModel => res.json(dbModel))
+      .remove({playerNum: pnum})
+      .then(() => {
+        console.log(`found player ${pnum} and removing...`);
+      })
       .catch(err => res.status(422).json(err));
 
     // destroy session
