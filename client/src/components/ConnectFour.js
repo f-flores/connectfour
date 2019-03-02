@@ -25,6 +25,8 @@ class ConnectFour extends Component {
       products: [],
       turn: 1,
       board: [...Array(GRID_ROWS)].fill(null).map(x=>Array(GRID_COLS).fill(null)),
+      p1Name: "",
+      p2Name: "",
     }
   }
 
@@ -32,8 +34,23 @@ class ConnectFour extends Component {
 
   }
 
+  handleInputChange = event => {
+    const {name, value} = event.target;
+
+    this.setState({
+      [name]: value,
+    })
+  }
+
+  handleFormSubmit = event => {
+    event.preventDefault();
+
+    // make api call to set player name
+    console.log(this.state.p1Name);
+  }
+
   render() {
-    const {board} = this.state;
+    const {p1Name, p2Name, board} = this.state;
 
     return (
       <Container className="justify-content-center">
@@ -48,7 +65,17 @@ class ConnectFour extends Component {
           <Col xs={12} sm={2}>
             <Row>
               <Col xs={12}>
-              Player 1
+                Player 1
+                <form className="form">
+                  <input
+                    value={p1Name}
+                    name="p1Name"
+                    onChange={this.handleInputChange}
+                    type="text"
+                    placeholder="Player name"
+                  />
+                  <button onClick={this.handleFormSubmit}>Sign in</button>
+                </form>
               </Col>
             </Row>
             <Row>
