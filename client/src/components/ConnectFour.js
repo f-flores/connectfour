@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Board from './Board';
-// import axios from 'axios';
+import API from './../utilities/API';
 import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -23,7 +23,7 @@ class ConnectFour extends Component {
     super(props);
     this.state = {
       products: [],
-      turn: 1,
+      turn: 0,
       board: [...Array(GRID_ROWS)].fill(null).map(x=>Array(GRID_COLS).fill(null)),
       p1Name: "",
       p2Name: "",
@@ -31,7 +31,12 @@ class ConnectFour extends Component {
   }
 
   componentDidMount() {
-
+    API
+    .getActivePlayers()
+    .then(res =>{
+      console.log(res.data.activeList);
+    })
+    .catch(err => console.log(err));
   }
 
   handleInputChange = event => {
