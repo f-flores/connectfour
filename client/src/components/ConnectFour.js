@@ -25,8 +25,7 @@ class ConnectFour extends Component {
       products: [],
       turn: 0,
       board: [...Array(GRID_ROWS)].fill(null).map(x=>Array(GRID_COLS).fill(null)),
-      p1Name: "",
-      p2Name: "",
+      pName: "",
     }
   }
 
@@ -51,11 +50,11 @@ class ConnectFour extends Component {
     event.preventDefault();
 
     // make api call to set player name
-    console.log(this.state.p1Name);
+    console.log(this.state.pName);
   }
 
   render() {
-    const {p1Name, p2Name, board} = this.state;
+    const {pName, board} = this.state;
 
     return (
       <Container className="justify-content-center">
@@ -70,11 +69,11 @@ class ConnectFour extends Component {
           <Col xs={12} sm={2}>
             <Row>
               <Col xs={12}>
-                Player 1
+                Enter player name
                 <form className="form">
                   <input
-                    value={p1Name}
-                    name="p1Name"
+                    value={pName}
+                    name="pName"
                     onChange={this.handleInputChange}
                     type="text"
                     placeholder="Player name"
@@ -85,7 +84,9 @@ class ConnectFour extends Component {
             </Row>
             <Row>
               <Col xs={12}>
-              Player 2
+              {pName === "" &&
+              `Waiting for player`
+              }
               </Col>
             </Row>
           </Col>
