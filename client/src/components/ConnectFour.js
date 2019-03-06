@@ -26,7 +26,10 @@ class ConnectFour extends Component {
       turn: 0,
       board: [...Array(GRID_ROWS)].fill(null).map(x=>Array(GRID_COLS).fill(null)),
       pName: "",
-    }
+      activePlyrList: [],
+    };
+    this.displaySigninForm = this.displaySigninForm.bind(this);
+    this.displayWaitMsgs = this.displayWaitMsgs.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +37,9 @@ class ConnectFour extends Component {
     .getActivePlayers()
     .then(res =>{
       console.log(res.data.activeList);
+      this.setState({
+        activePlyrList: res.data.activeList,
+      });
     })
     .catch(err => console.log(err));
   }
@@ -53,8 +59,38 @@ class ConnectFour extends Component {
     console.log(this.state.pName);
   }
 
+  displaySigninForm = () => {
+    const {pName} = this.state;
+
+    return (
+      <div>
+        Enter player name
+        <form className="form">
+          <input
+            value={pName}
+            name="pName"
+            onChange={this.handleInputChange}
+            type="text"
+            placeholder="Player name"
+          />
+          <button onClick={this.handleFormSubmit}>Sign in</button>
+        </form>
+      </div>
+    );
+  }
+
+  displayWaitMsgs = () => {
+    const {activePlyrList} = this.state;
+
+    return (
+      <div>
+        Waiting for player
+      </div>
+    )
+  }
+
   render() {
-    const {pName, board} = this.state;
+    const {activePlyrList, pName, board} = this.state;
 
     return (
       <Container className="justify-content-center">
@@ -69,24 +105,19 @@ class ConnectFour extends Component {
           <Col xs={12} sm={2}>
             <Row>
               <Col xs={12}>
-                Enter player name
-                <form className="form">
-                  <input
-                    value={pName}
-                    name="pName"
-                    onChange={this.handleInputChange}
-                    type="text"
-                    placeholder="Player name"
-                  />
-                  <button onClick={this.handleFormSubmit}>Sign in</button>
-                </form>
+                {
+                  activePlyrList.length <= 1
+                  ? this.displaySigninForm()
+                  : ""
+                }
               </Col>
             </Row>
             <Row>
               <Col xs={12}>
-              {pName === "" &&
-              `Waiting for player`
-              }
+                {activePlyrList.length <= 1
+                  ? this.displayWaitMsgs()
+                  : ""
+                }
               </Col>
             </Row>
           </Col>
