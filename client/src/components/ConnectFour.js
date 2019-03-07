@@ -28,6 +28,8 @@ class ConnectFour extends Component {
       pName: "",
       activePlyrList: [],
     };
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.displaySigninForm = this.displaySigninForm.bind(this);
     this.displayWaitMsgs = this.displayWaitMsgs.bind(this);
   }
@@ -81,12 +83,40 @@ class ConnectFour extends Component {
 
   displayWaitMsgs = () => {
     const {activePlyrList} = this.state;
+    const player1 = activePlyrList.includes(0);
+    const player2 = activePlyrList.includes(1);
+    const busy = player1 && player2;
 
-    return (
-      <div>
-        Waiting for player
-      </div>
-    )
+    if (busy) {
+      return (
+        <div>
+          Both players signed in
+        </div>
+      );
+    } else if (player2 && !player1) {
+      return (
+        <div>
+          Waiting for player 1 to sign in
+        </div>
+      );
+    } else if (player1 && !player2) {
+        return (
+          <div>
+            Waiting for player 2 to sign in
+          </div>
+        );
+    } else {
+      return (
+        <div>
+          <div>
+            Waiting for player 1 to sign in
+          </div>
+          <div>
+            Waiting for player 2 to sign in
+          </div>
+        </div>
+      );
+    }
   }
 
   render() {
