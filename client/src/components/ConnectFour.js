@@ -27,6 +27,7 @@ class ConnectFour extends Component {
       board: [...Array(GRID_ROWS)].fill(null).map(x=>Array(GRID_COLS).fill(null)),
       pName: "",
       activePlyrList: [],
+      playerData: null,
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -39,8 +40,10 @@ class ConnectFour extends Component {
     .getActivePlayers()
     .then(res =>{
       console.log(res.data.activeList);
+      console.log(res.data.playerData);
       this.setState({
         activePlyrList: res.data.activeList,
+        playerData: res.data.playerData,
       });
     })
     .catch(err => console.log(err));
@@ -82,7 +85,7 @@ class ConnectFour extends Component {
   }
 
   displayWaitMsgs = () => {
-    const {activePlyrList} = this.state;
+    const {activePlyrList, playerData} = this.state;
     const player1 = activePlyrList.includes(0);
     const player2 = activePlyrList.includes(1);
     const busy = player1 && player2;
@@ -90,19 +93,34 @@ class ConnectFour extends Component {
     if (busy) {
       return (
         <div>
-          Both players signed in
+          <div>
+            Player 1: {playerData[0].playerName}
+          </div>
+          <div>
+            Player 2: {playerData[1].playerName}
+          </div>
         </div>
       );
     } else if (player2 && !player1) {
       return (
         <div>
-          Waiting for player 1 to sign in
+          <div>
+            Waiting for player 1 to sign in
+          </div>
+          <div>
+            Player 2: {playerData[0].playerName}
+          </div>
         </div>
       );
     } else if (player1 && !player2) {
         return (
           <div>
-            Waiting for player 2 to sign in
+            <div>
+              Player 1: {playerData[0].playerName}
+            </div>
+            <div>
+              Waiting for player 2 to sign in
+            </div>
           </div>
         );
     } else {

@@ -36,7 +36,10 @@ module.exports = {
         for (item of dbModel) {
           playerList.push(item.playerNum);
         }
-        res.json({activeList: playerList});
+        res.json({
+          activeList: playerList,
+          playerData: dbModel,
+        });
       })
       .catch(err => res.status(422).json(err));
   },
