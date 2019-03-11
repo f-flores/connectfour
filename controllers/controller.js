@@ -46,7 +46,7 @@ module.exports = {
   },
 
   create: function (req, res) {
-    let {playerName, playerNum} = req.body;
+    const {playerName, playerNum} = req.body;
     let errorText = "error";
 
     let playerData = {
@@ -54,16 +54,11 @@ module.exports = {
       playerNum: parseInt(playerNum, 10),
     }
 
-    // determine player num by counting current number of players
-    console.log(`controller.create(), playerData`);
-    console.log(playerData);
     //use schema.create to insert data into the db
     if (playerName && playerNum >= 0) {
-      console.log(`in playerName and playerNum condiiton`);
       Player
-      .create(playerData, function (err, user) {
-        if (err) {console.log(err); res.status(404).send("Username/email exists already.");}
-
+      .create(playerData)
+      .then(user => {
         // Left Hand Side Comes From Sessions and Is Mapped To Our User Table
         req.session.playerId = user._id;
         req.session.playerName = user.playerName;
@@ -74,22 +69,14 @@ module.exports = {
           playerName: req.session.playerName,
           playerNum: req.session.playerNum,
         });
-      });
-/*       .then(() => {
-        res.json({
-          isLoggedIn: true,
-          playerId: req.session.playerId,
-          playerName: req.session.playerName,
-          playerNum: req.session.playerNum,
-        });
       })
       .catch(err => {
-        console.log(`create error clause`);
+        console.log(err);
+        // res.status(404).send("Username/email exists already.");}
         res.status(422).json(err);
-      }); */
+      });
     }
     else {
-      console.log(`else clause`);
       res.status(404).send(errorText);
     }
   },

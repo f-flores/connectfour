@@ -44,8 +44,6 @@ class ConnectFour extends Component {
     API
     .getActivePlayers()
     .then(res =>{
-      console.log(res.data.activeList);
-      console.log(res.data.playerData);
       this.setState({
         activePlyrList: res.data.activeList,
         playerData: res.data.playerData,
@@ -111,9 +109,8 @@ class ConnectFour extends Component {
     const {activePlyrList, playerData} = this.state;
     const player1 = activePlyrList.includes(0);
     const player2 = activePlyrList.includes(1);
-    const busy = player1 && player2;
 
-    if (busy) {
+    if (player1 && player2) {
       return (
         <div>
           <div>
@@ -161,7 +158,7 @@ class ConnectFour extends Component {
   }
 
   render() {
-    const {activePlyrList, pName, board} = this.state;
+    const {activePlyrList, board} = this.state;
 
     return (
       <Container className="justify-content-center">
@@ -185,10 +182,7 @@ class ConnectFour extends Component {
             </Row>
             <Row>
               <Col xs={12}>
-                {activePlyrList.length <= 1
-                  ? this.displayWaitMsgs()
-                  : ""
-                }
+                { this.displayWaitMsgs() }
               </Col>
             </Row>
           </Col>
