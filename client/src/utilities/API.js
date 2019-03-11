@@ -15,7 +15,7 @@ export default {
     return axios.get("/api/player/activelist")
   },
   signinPlayer: function(postInfo) {
-    return axios.get("/api/player", postInfo)
+    return axios.post("/api/player", postInfo)
   },
 /*   getRecentReports: function(query){
       return axios.get("/api/reports/recent", {params: query})

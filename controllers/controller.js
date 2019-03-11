@@ -6,6 +6,7 @@
 // =============================================
 
 const Player = require("./../models/GameBoard");
+const db = require("./../models");
 
 // Minimum username length
 const UnameMinLength = 2;
@@ -45,19 +46,23 @@ module.exports = {
   },
 
   create: function (req, res) {
-    const {playerName, playerNum} = req.body;
+    let {playerName, playerNum} = req.body;
     let errorText = "error";
 
+    playerNum = parseInt(playerNum, 10);
     let playerData = {
       playerName: playerName,
       playerNum: playerNum,
     }
 
     // determine player num by counting current number of players
-
+    console.log(`controller.create(), playerData`);
+    console.log(playerData);
     //use schema.create to insert data into the db
-    if (playerName && playerNum) {
-      Player
+    if (playerName && playerNum >= 0) {
+      console.log(`in playerName and playerNum condiiton`);
+      db
+      .Player
       .create(playerData, function (err, user) {
         if (err) {console.log(err); res.status(404).send("Username/email exists already.");}
 
@@ -65,6 +70,8 @@ module.exports = {
         req.session.playerId = user._id;
         req.session.playerName = user.playerName;
         req.session.playerNum = user.playerNum;
+      })
+      .then(() => {
         res.json({
           isLoggedIn: true,
           playerId: req.session.playerId,
@@ -72,9 +79,13 @@ module.exports = {
           playerNum: req.session.playerNum,
         });
       })
-      .catch(err => res.status(422).json(err));
+      .catch(err => {
+        console.log(`create error clause`);
+        res.status(422).json(err);
+      });
     }
     else {
+      console.log(`else clause`);
       res.status(404).send(errorText);
     }
   },

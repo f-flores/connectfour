@@ -33,9 +33,14 @@ class ConnectFour extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.displaySigninForm = this.displaySigninForm.bind(this);
     this.displayWaitMsgs = this.displayWaitMsgs.bind(this);
+    this.getActivePlayerList = this.getActivePlayerList.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
+    this.getActivePlayerList();
+  }
+
+  getActivePlayerList = () => {
     API
     .getActivePlayers()
     .then(res =>{
@@ -59,8 +64,26 @@ class ConnectFour extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+    const {pName, activePlyrList} = this.state;
+    const nextAvailablePlayerNum =
+      !activePlyrList.includes(0)
+      ? 0
+      : 1;
+
+    const obj = {
+      playerName: pName,
+      playerNum: nextAvailablePlayerNum,
+    }
+    console.log(`ConnectFour handleFormSubmit()`);
+    console.log(obj);
 
     // make api call to set player name
+    API
+    .signinPlayer(obj)
+    .then(res => {
+      this.getActivePlayerList();
+    })
+    .catch(err => console.log(err));
     console.log(this.state.pName);
   }
 
