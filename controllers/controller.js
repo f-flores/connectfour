@@ -49,10 +49,9 @@ module.exports = {
     let {playerName, playerNum} = req.body;
     let errorText = "error";
 
-    playerNum = parseInt(playerNum, 10);
     let playerData = {
       playerName: playerName,
-      playerNum: playerNum,
+      playerNum: parseInt(playerNum, 10),
     }
 
     // determine player num by counting current number of players
@@ -61,8 +60,7 @@ module.exports = {
     //use schema.create to insert data into the db
     if (playerName && playerNum >= 0) {
       console.log(`in playerName and playerNum condiiton`);
-      db
-      .Player
+      Player
       .create(playerData, function (err, user) {
         if (err) {console.log(err); res.status(404).send("Username/email exists already.");}
 
@@ -70,8 +68,14 @@ module.exports = {
         req.session.playerId = user._id;
         req.session.playerName = user.playerName;
         req.session.playerNum = user.playerNum;
-      })
-      .then(() => {
+        res.json({
+          isLoggedIn: true,
+          playerId: req.session.playerId,
+          playerName: req.session.playerName,
+          playerNum: req.session.playerNum,
+        });
+      });
+/*       .then(() => {
         res.json({
           isLoggedIn: true,
           playerId: req.session.playerId,
@@ -82,7 +86,7 @@ module.exports = {
       .catch(err => {
         console.log(`create error clause`);
         res.status(422).json(err);
-      });
+      }); */
     }
     else {
       console.log(`else clause`);
