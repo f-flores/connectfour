@@ -1,3 +1,12 @@
+// =====================================================================
+//
+// File name: ConnectFour.js
+// Description: Handles sign in to game. Renders game board.
+//
+// Date: March, 2019
+//
+// ======================================================================
+
 import React, {Component} from 'react';
 import Board from './Board';
 import API from './../utilities/API';
