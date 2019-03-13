@@ -27,6 +27,17 @@ const CustomH1 = styled.h1`
   text-align: center;
 `;
 
+function LeaveButton(props) {
+  const {player} = props;
+  return (
+    <button
+    player = {player}
+    >
+    Leave
+    </button>
+  );
+}
+
 class ConnectFour extends Component {
   constructor(props) {
     super(props);
@@ -43,6 +54,7 @@ class ConnectFour extends Component {
     this.displaySigninForm = this.displaySigninForm.bind(this);
     this.displayWaitMsgs = this.displayWaitMsgs.bind(this);
     this.getActivePlayerList = this.getActivePlayerList.bind(this);
+    this.handleLeave = this.handleLeave.bind(this);
   }
 
   componentDidMount = () => {
@@ -72,17 +84,12 @@ class ConnectFour extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     const {pName, activePlyrList} = this.state;
-    const nextAvailablePlayerNum =
-      !activePlyrList.includes(0)
-      ? 0
-      : 1;
+    const nextAvailablePlayerNum = !activePlyrList.includes(0) ? 0 : 1;
 
     const obj = {
       playerName: pName,
       playerNum: nextAvailablePlayerNum,
     }
-    console.log(`ConnectFour handleFormSubmit()`);
-    console.log(obj);
 
     // make api call to set player name
     API
@@ -92,6 +99,10 @@ class ConnectFour extends Component {
     })
     .catch(err => console.log(err));
     console.log(this.state.pName);
+  }
+
+  handleLeave = () => {
+    console.log(`in handleLeave() `);
   }
 
   displaySigninForm = () => {
@@ -124,9 +135,11 @@ class ConnectFour extends Component {
         <div>
           <div>
             Player 1: {playerData[0].playerName}
+            <LeaveButton player={0} />
           </div>
           <div>
             Player 2: {playerData[1].playerName}
+            <LeaveButton player={1} />
           </div>
         </div>
       );
@@ -138,6 +151,7 @@ class ConnectFour extends Component {
           </div>
           <div>
             Player 2: {playerData[0].playerName}
+            <LeaveButton player={0} />
           </div>
         </div>
       );
@@ -146,6 +160,7 @@ class ConnectFour extends Component {
           <div>
             <div>
               Player 1: {playerData[0].playerName}
+              <LeaveButton player={0} />
             </div>
             <div>
               Waiting for player 2 to sign in
