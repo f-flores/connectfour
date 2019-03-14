@@ -9,6 +9,7 @@
 
 import React, {Component} from 'react';
 import Board from './Board';
+import LeaveButton from './LeaveButton';
 import API from './../utilities/API';
 import styled from 'styled-components';
 import Container from 'react-bootstrap/Container';
@@ -26,17 +27,6 @@ const Header = styled.header`
 const CustomH1 = styled.h1`
   text-align: center;
 `;
-
-function LeaveButton(props) {
-  const {player} = props;
-  return (
-    <button
-    player = {player}
-    >
-    Leave
-    </button>
-  );
-}
 
 class ConnectFour extends Component {
   constructor(props) {
