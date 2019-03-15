@@ -19,6 +19,15 @@ class LeaveButton extends Component {
     };
   }
 
+  // on pressing leave button
+
+  // make API call to leave game
+  // takes in player number
+
+  // upon leaving
+  // call get active players
+  // and update dom
+
   render() {
     const {player} = this.props;
     return (
