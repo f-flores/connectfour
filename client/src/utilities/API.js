@@ -12,11 +12,14 @@ import axios from 'axios';
 export default {
   // Obtains active player list
   getActivePlayers: function() {
-    return axios.get("/api/player/activelist")
+    return axios.get("/api/player/activelist");
   },
   signinPlayer: function(postInfo) {
-    return axios.post("/api/player", postInfo)
+    return axios.post("/api/player", postInfo);
   },
+  leavePlayer: function(pNum) {
+    return axios.get(`/api/player/leave/${pNum}`);
+  }
 /*   getRecentReports: function(query){
       return axios.get("/api/reports/recent", {params: query})
   },
