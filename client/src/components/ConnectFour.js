@@ -41,6 +41,7 @@ class ConnectFour extends Component {
     };
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleLeave = this.handleLeave.bind(this);
     this.displaySigninForm = this.displaySigninForm.bind(this);
     this.displayWaitMsgs = this.displayWaitMsgs.bind(this);
     this.getActivePlayerList = this.getActivePlayerList.bind(this);
@@ -61,6 +62,10 @@ class ConnectFour extends Component {
       });
     })
     .catch(err => console.log(err));
+  }
+
+  handleLeave = () => {
+    console.log(`handleLeave`)
   }
 
   handleInputChange = event => {
@@ -125,11 +130,17 @@ class ConnectFour extends Component {
         <div>
           <div>
             Player 1: {playerData[0].playerName}
-            <LeaveButton player={0} />
+            <LeaveButton
+              leaveResult = {this.handleLeave}
+              player={0}
+            />
           </div>
           <div>
             Player 2: {playerData[1].playerName}
-            <LeaveButton player={1} />
+            <LeaveButton
+              leaveResult = {this.handleLeave}
+              player={1}
+            />
           </div>
         </div>
       );
@@ -141,7 +152,10 @@ class ConnectFour extends Component {
           </div>
           <div>
             Player 2: {playerData[0].playerName}
-            <LeaveButton player={0} />
+            <LeaveButton
+              leaveResult = {this.handleLeave}
+              player={0}
+            />
           </div>
         </div>
       );
@@ -150,7 +164,10 @@ class ConnectFour extends Component {
           <div>
             <div>
               Player 1: {playerData[0].playerName}
-              <LeaveButton player={0} />
+              <LeaveButton
+                leaveResult = {this.handleLeave}
+                player={0}
+              />
             </div>
             <div>
               Waiting for player 2 to sign in

@@ -17,22 +17,35 @@ class LeaveButton extends Component {
     this.state = {
       example: "",
     };
+    this.handleClick = this.handleClick.bind(this);
   }
 
   // on pressing leave button
+  handleClick = () => {
+    const {player} = this.props;
 
-  // make API call to leave game
-  // takes in player number
-
+    // make API call to leave game
+    // takes in player number
+    API
+    .leavePlayer(player)
+    .then(() => {
   // upon leaving
   // call get active players
   // and update dom
+    })
+    .catch(err => console.log(err))
+  }
+
+
+
+
 
   render() {
     const {player} = this.props;
     return (
       <button
       player = {player}
+      onClick = {this.handleClick}
       >
       Leave
       </button>
