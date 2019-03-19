@@ -28,10 +28,12 @@ class LeaveButton extends Component {
     // takes in player number
     API
     .leavePlayer(player)
-    .then(() => {
-  // upon leaving
-  // call get active players
-  // and update dom
+    .then(res => {
+      // upon leaving
+      // call get active players
+      // and update dom
+      console.log(res.data);
+      this.props.leaveResult(player);
     })
     .catch(err => console.log(err))
   }

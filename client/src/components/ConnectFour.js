@@ -64,10 +64,6 @@ class ConnectFour extends Component {
     .catch(err => console.log(err));
   }
 
-  handleLeave = () => {
-    console.log(`handleLeave`)
-  }
-
   handleInputChange = event => {
     const {name, value} = event.target;
 
@@ -96,8 +92,10 @@ class ConnectFour extends Component {
     console.log(this.state.pName);
   }
 
-  handleLeave = () => {
+  handleLeave = player => {
     console.log(`in handleLeave() `);
+    console.log(`player ${player} left game`);
+    this.getActivePlayerList();
   }
 
   displaySigninForm = () => {
