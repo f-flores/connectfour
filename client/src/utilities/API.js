@@ -18,7 +18,8 @@ export default {
     return axios.post("/api/player", postInfo);
   },
   leavePlayer: function(pNum) {
-    return axios.get(`/api/player/leave/${pNum}`);
+    console.log(`API call: /api/player/leave/${pNum}`)
+    return axios.delete(`/api/player/leave/${pNum}`);
   }
 /*   getRecentReports: function(query){
       return axios.get("/api/reports/recent", {params: query})

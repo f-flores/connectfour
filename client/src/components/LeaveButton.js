@@ -23,6 +23,7 @@ class LeaveButton extends Component {
   // on pressing leave button
   handleClick = () => {
     const {player} = this.props;
+    console.log(`LeaveButton.js handleClick()`);
 
     // make API call to leave game
     // takes in player number

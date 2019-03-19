@@ -168,11 +168,12 @@ module.exports = {
   },
 
   exitGame: function(req, res) {
+    console.log(`in exitGame()`);
     const {pnum} = req.params;
     console.log(`found player ${pnum} and removing...`);
     // remove player from player list
     Player
-      .remove({playerNum: pnum})
+      .deleteOne({playerNum: pnum})
       .then(() => {
         console.log(`found player ${pnum} and removing...`);
       })
