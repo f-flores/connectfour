@@ -1,3 +1,12 @@
+// =============================================
+//
+// File name: HoverCell.js
+// Description: Actions to take place when
+//  player hovers over a connect four board
+//  cell.
+//
+// =============================================
+
 import React, {Component} from 'react';
 
 class HoverCell extends Component {
