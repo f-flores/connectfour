@@ -37,6 +37,7 @@ module.exports = {
         for (item of dbModel) {
           playerList.push(item.playerNum);
         }
+        console.log(`playerList: ${playerList}`);
         res.json({
           activeList: playerList,
           playerData: dbModel,
