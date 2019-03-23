@@ -122,6 +122,7 @@ class ConnectFour extends Component {
     const {activePlyrList, playerData} = this.state;
     const player1 = activePlyrList.includes(0);
     const player2 = activePlyrList.includes(1);
+    console.log(`displayWaitMsgs: player1 -- ${player1}, player2 -- ${player2}`);
 
     if (player1 && player2) {
       return (
@@ -152,7 +153,7 @@ class ConnectFour extends Component {
             Player 2: {playerData[0].playerName}
             <LeaveButton
               leaveResult = {this.handleLeave}
-              player={0}
+              player={1}
             />
           </div>
         </div>

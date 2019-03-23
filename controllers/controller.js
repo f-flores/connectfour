@@ -34,9 +34,11 @@ module.exports = {
       // .sort({ playerNum: "ascending" })
       .then(dbModel => {
         const playerList = [];
+        dbModel.sort((a, b) => a.playerNum - b.playerNum)
         for (item of dbModel) {
           playerList.push(item.playerNum);
         }
+        // playerList.sort((a, b) => a - b)
         console.log(`playerList: ${playerList}`);
         res.json({
           activeList: playerList,
