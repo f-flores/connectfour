@@ -74,7 +74,12 @@ app.get("*", function(req, res) {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 });
 
+// Setup socket.io
+// =============================================================
+var server = require("http").createServer(app);
+var io = require("socket.io")(server);
+
 // Start the server
-app.listen(PORT, function() {
+server.listen(PORT, function() {
   console.log(`🌎  ==> Server now listening on PORT ${PORT}!`);
 });
