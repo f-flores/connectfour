@@ -79,6 +79,9 @@ app.get("*", function(req, res) {
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 
+// connect to db
+// indicate change streams
+
 // Start the server
 server.listen(PORT, function() {
   console.log(`🌎  ==> Server now listening on PORT ${PORT}!`);
