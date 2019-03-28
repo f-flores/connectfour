@@ -15,6 +15,7 @@ const mongoose = require("mongoose");
 const logger = require("morgan");
 const	fs = require("fs");
 const path = require("path");
+const db = require("./models");
 
 // Setup Express App
 // ===================================
@@ -80,7 +81,13 @@ var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 
 // connect to db
+const playerChangeStream = db.GameBoard.collection.watch({
+  fullDocument: 'updateLookup',
+});
 // indicate change streams
+playerChangeStream.on('change', event => {
+  console.log('it changed ---!', event);
+});
 
 // Start the server
 server.listen(PORT, function() {
