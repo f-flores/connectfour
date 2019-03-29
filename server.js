@@ -80,14 +80,7 @@ app.get("*", function(req, res) {
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
 
-// connect to db
-const playerChangeStream = db.GameBoard.collection.watch({
-  fullDocument: 'updateLookup',
-});
-// indicate change streams
-playerChangeStream.on('change', event => {
-  console.log('it changed ---!', event);
-});
+
 
 // Start the server
 server.listen(PORT, function() {

@@ -31,3 +31,29 @@ const boardSchema = new Schema({
 const GameBoard = mongoose.model("GameBoard", boardSchema);
 
 module.exports = GameBoard;
+
+const MONGODB_LOCATION = process.env.MONGODB_URI || "mongodb://localhost/connectfour";
+
+// connect to db
+async function connect(io) {
+  await mongoose.connect(MONGODB_LOCATION);
+  console.log('Connected to MongoDB');
+
+  const gameChangeStream = GameBoard.collection.watch({
+    fullDocument: 'updateLookup',
+  });
+  gameChangeStream.on('change', event => {
+    console.log('it changed', event);
+    /*
+    io.emit('dib changeEvent', {
+      type: result.operationType,
+      dib: {
+        claimed: {},
+        ...result.fullDocument,
+        id: result.fullDocument._id,
+      },
+    });
+    */
+  });
+}
+exports.connect = connect;
