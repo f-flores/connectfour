@@ -1,9 +1,16 @@
 // Export All Models
 const mongoose = require('mongoose');
+const GameBoard = require('./GameBoard');
 
-module.exports = {
+/* module.exports = {
   GameBoard: require("./GameBoard.js"),
+}; */
+
+const Models = {
+  GameBoard,
 };
+
+exports.GameBoard = Models;
 
 const MONGODB_LOCATION = process.env.MONGODB_URI || "mongodb://localhost/connectfour";
 console.log(`right before connect(io) in ./models/index.js`);
