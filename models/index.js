@@ -25,8 +25,7 @@ async function connect(io) {
   });
   gameChangeStream.on('change', event => {
     console.log('it changed', event);
-    /*
-    io.emit('dib changeEvent', {
+    io.emit('game change event', {
       type: result.operationType,
       dib: {
         claimed: {},
@@ -34,7 +33,7 @@ async function connect(io) {
         id: result.fullDocument._id,
       },
     });
-    */
+
   });
 }
 exports.connect = connect;
