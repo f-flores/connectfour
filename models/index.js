@@ -2,10 +2,6 @@
 const mongoose = require('mongoose');
 const GameBoard = require('./GameBoard');
 
-/* module.exports = {
-  GameBoard: require("./GameBoard.js"),
-}; */
-
 const Models = {
   GameBoard,
 };
@@ -37,3 +33,6 @@ async function connect(io) {
   });
 }
 exports.connect = connect;
+/* module.exports = {
+  GameBoard: require("./GameBoard.js"),
+}; */
